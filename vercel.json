@@ -1,8 +1,6 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/account", "destination": "/account.html" },
-    { "source": "/account.html", "destination": "/account.html" }
+    { "source": "/", "destination": "/index.html" }
   ]
 }
