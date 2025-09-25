@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Jay Stores - E-Commerce Product Showcase</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+</head>
+<body>
+	<!-- Navbar -->
+	<nav class="navbar">
+		<div class="brand">
+			<div class="logo-circle">
+				<span>J</span>
+			</div>
+			<span class="brand-name">Jay Stores</span>
+		</div>
+		<form class="search-bar" autocomplete="off">
+			<input type="text" id="searchInput" placeholder="Search products...">
+			<button type="submit"><span class="icon-search"></span></button>
+		</form>
+		<select id="categoryDropdown" class="category-dropdown">
+			<option value="all">All Categories</option>
+			<option value="electronics">Electronics</option>
+			<option value="fashion">Fashion</option>
+			<option value="home">Home</option>
+		</select>
+		<div class="nav-icons">
+			<span class="icon-wishlist" id="wishlistIcon" title="Wishlist"></span>
+			<span class="icon-cart" id="cartIcon" title="Cart"><span id="cartCount">0</span></span>
+			<span class="icon-theme-toggle" id="themeToggle" title="Toggle dark/light mode"></span>
+		</div>
+	</nav>
+
+	<!-- Carousel/Slider -->
+	<section class="carousel" id="carousel">
+		<div class="carousel-track">
+			<!-- Slides will be injected by JS -->
+		</div>
+		<button class="carousel-btn prev">&#10094;</button>
+		<button class="carousel-btn next">&#10095;</button>
+	</section>
+
+	<!-- Deal of the Day -->
+	<section class="deal-of-day" id="dealOfDay">
+		<div class="deal-image"></div>
+		<div class="deal-info">
+			<h2>Deal of the Day</h2>
+			<h3 id="dealTitle"></h3>
+			<p id="dealDesc"></p>
+			<div class="deal-price" id="dealPrice"></div>
+			<div class="deal-timer"><span id="dealTimer"></span> left</div>
+			<button id="dealAddToCart">Add to Cart</button>
+		</div>
+	</section>
+
+	<!-- Category Filters -->
+	<section class="category-filters">
+		<button class="filter-btn active" data-category="all">All</button>
+		<button class="filter-btn" data-category="electronics">Electronics</button>
+		<button class="filter-btn" data-category="fashion">Fashion</button>
+		<button class="filter-btn" data-category="home">Home</button>
+	</section>
+
+	<!-- Product Grid -->
+	<main class="product-grid" id="productGrid">
+		<!-- Product cards will be injected by JS -->
+	</main>
+
+	<!-- Product Modal -->
+	<div class="modal" id="productModal">
+		<div class="modal-content">
+			<span class="close-modal" id="closeModal">&times;</span>
+			<div class="modal-image" id="modalImage"></div>
+			<div class="modal-details">
+				<h2 id="modalTitle"></h2>
+				<div class="modal-rating" id="modalRating"></div>
+				<div class="modal-price" id="modalPrice"></div>
+				<p id="modalDesc"></p>
+				<button id="modalAddToCart">Add to Cart</button>
+				<button id="modalAddToWishlist">Add to Wishlist</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Floating Cart Icon (Mobile) -->
+	<div class="floating-cart" id="floatingCart">
+		<span class="icon-cart"></span>
+		<span id="floatingCartCount">0</span>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+</html>
