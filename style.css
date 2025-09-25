@@ -459,20 +459,25 @@ body {
 }
 
 /* --- Floating Cart --- */
-.floating-cart {
-	position: fixed;
-	bottom: 2.2em; right: 2.2em;
-	background: var(--primary);
-	color: #fff;
-	border-radius: 50%;
-	width: 56px; height: 56px;
-	display: flex; align-items: center; justify-content: center;
-	font-size: 2rem;
-	box-shadow: 0 4px 16px #ff990044;
-	z-index: 300;
-	cursor: pointer;
-	transition: background var(--transition), transform var(--transition);
-}
+ .floating-cart {
+	 position: fixed;
+	 bottom: 2.2em; right: 2.2em;
+	 background: var(--primary);
+	 color: #fff;
+	 border-radius: 50%;
+	 width: 56px; height: 56px;
+	 display: flex; align-items: center; justify-content: center;
+	 font-size: 2rem;
+	 box-shadow: 0 4px 16px #ff990044;
+	 z-index: 300;
+	 cursor: pointer;
+	 transition: background var(--transition), transform var(--transition);
+ }
+ .floating-cart .icon-cart {
+	 font-size: 1.1em !important;
+	 line-height: 1;
+ }
+
 .floating-cart:hover {
 	background: var(--primary-dark);
 	transform: scale(1.08);
