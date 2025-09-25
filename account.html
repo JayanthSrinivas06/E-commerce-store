@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account - Jay Stores</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--bg); }
+    .account-container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 32px #232f3e33;
+      padding: 2.5em 2em 2em 2em;
+      min-width: 320px;
+      max-width: 95vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2em;
+    }
+    .account-title { font-size: 2em; font-weight: bold; color: var(--primary); }
+    .account-info { color: #333; font-size: 1.1em; margin-bottom: 1em; }
+    .logout-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .logout-btn:hover { background: var(--primary-dark); }
+  </style>
+</head>
+<body>
+  <div class="account-container">
+    <div class="account-title">Your Account</div>
+    <div class="account-info">Username: <b>user</b></div>
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  </div>
+  <script>
+    if (localStorage.getItem('jaystores_loggedin') !== '1') {
+      window.location.href = 'login.html';
+    }
+    document.getElementById('logoutBtn').onclick = function() {
+      localStorage.removeItem('jaystores_loggedin');
+      window.location.href = 'login.html';
+    };
+  </script>
+</body>
+</html>

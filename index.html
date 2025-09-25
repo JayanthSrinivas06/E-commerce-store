@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script>
+		if (localStorage.getItem('jaystores_loggedin') !== '1') {
+			window.location.href = 'login.html';
+		}
+	</script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Jay Stores - E-Commerce Product Showcase</title>
@@ -28,6 +33,7 @@
 				<a href="#" class="nav-link">Deals</a>
 				<a href="#" class="nav-link">Orders</a>
 				<a href="#" class="nav-link">Account</a>
+<a href="account.html" class="nav-link">Account</a>
 			</nav>
 		</div>
 		<form class="search-bar" autocomplete="off">

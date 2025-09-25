@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Jay Stores</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--bg); }
+    .login-container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 32px #232f3e33;
+      padding: 2.5em 2em 2em 2em;
+      min-width: 320px;
+      max-width: 95vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2em;
+    }
+    .login-title { font-size: 2em; font-weight: bold; color: var(--primary); }
+    .login-form { display: flex; flex-direction: column; gap: 1em; width: 100%; }
+    .login-form input {
+      padding: 0.7em 1em;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    .login-form button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.7em 1em;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .login-form button:hover { background: var(--primary-dark); }
+    .login-error { color: #d32f2f; font-size: 1em; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-title">Jay Stores Login</div>
+    <form class="login-form" id="loginForm" autocomplete="off">
+      <input type="text" id="loginUser" placeholder="Username" required autofocus>
+      <input type="password" id="loginPass" placeholder="Password" required>
+      <button type="submit">Login</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+    <div style="color:#888;font-size:0.95em;">Demo: user / pass123</div>
+  </div>
+  <script>
+    document.getElementById('loginForm').onsubmit = function(e) {
+      e.preventDefault();
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value;
+      if (user === 'user' && pass === 'pass123') {
+        localStorage.setItem('jaystores_loggedin', '1');
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('loginError').textContent = 'Invalid credentials. Try user / pass123';
+      }
+    };
+    // If already logged in, redirect
+    if (localStorage.getItem('jaystores_loggedin') === '1') {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
