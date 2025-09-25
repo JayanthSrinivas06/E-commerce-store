@@ -1,20 +1,3 @@
-[data-theme="dark"] .modal-content, [data-theme="dark"] .modal-details, [data-theme="dark"] .modal-title, [data-theme="dark"] .modal-price, [data-theme="dark"] .modal-rating, [data-theme="dark"] .modal-desc {
-	color: #111 !important;
-	background: #fff !important;
-}
-
-/* Ensure cart icon is always visible and styled */
-.icon-cart {
-	color: var(--primary) !important;
-	background: #fff;
-	border-radius: 50%;
-	padding: 0.2em 0.4em;
-	box-shadow: 0 1px 4px #2874f022;
-	position: relative;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-}
 /* --- Amazon/Flipkart Inspired Styles --- */
 
 :root {
