@@ -474,7 +474,7 @@ body {
 	 transition: background var(--transition), transform var(--transition);
  }
  .floating-cart .icon-cart {
-	 font-size: 1.1em !important;
+	 font-size: 1.0em !important;
 	 line-height: 1;
  }
 
