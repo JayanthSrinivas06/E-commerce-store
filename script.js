@@ -1,5 +1,11 @@
-// Main JavaScript for Jay Stores E-Commerce Showcase
 // Jay Stores Amazon-like E-Commerce JS
+
+// --- State ---
+let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+let currentCategory = 'all';
+let searchQuery = '';
+let darkMode = localStorage.getItem('theme') === 'dark';
 
 // --- Product & Banner Data ---
 
@@ -94,6 +100,10 @@ function renderProducts() {
 		(currentCategory === 'all' || p.category === currentCategory) &&
 		p.name.toLowerCase().includes(searchQuery)
 	);
+	if (filtered.length === 0) {
+		productGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#888;font-size:1.2em;padding:2em;">No products found.</div>';
+		return;
+	}
 	productGrid.innerHTML = filtered.map(p => `
 		<div class="product-card" data-id="${p.id}">
 			<div class="product-image" style="background-image:url('${p.image}')"></div>
@@ -130,9 +140,41 @@ function updateCartCount() {
 function updateWishlistIcon() {
 	wishlistIcon.style.color = wishlist.length ? 'var(--primary)' : 'var(--secondary)';
 }
-cartIcon.onclick = () => alert('Cart: ' + JSON.stringify(cart));
-floatingCart.onclick = () => cartIcon.onclick();
-wishlistIcon.onclick = () => alert('Wishlist: ' + wishlist.map(id => products.find(p => p.id === id)?.name).join(', '));
+// --- Cart Modal ---
+function renderCartModal() {
+	let modal = document.createElement('div');
+	modal.className = 'modal open';
+	modal.innerHTML = `<div class='modal-content' style='min-width:320px;max-width:95vw;'>
+		<span class='close-modal'>&times;</span>
+		<h2>Your Cart</h2>
+		<div style='margin:1em 0;'>${cart.length === 0 ? '<div style="color:#888;">Cart is empty.</div>' : cart.map(item => {
+			let p = products.find(pr => pr.id === item.id);
+			return `<div style='display:flex;align-items:center;gap:1em;margin-bottom:1em;'>
+				<div style='width:48px;height:48px;background:url(${p.image}) center/cover;border-radius:6px;'></div>
+				<div style='flex:1;'>${p.name}<br><span style='color:#2874f0;'>₹${p.price}</span> x ${item.qty}</div>
+				<button class='cart-remove' data-id='${p.id}' style='background:#ff9900;border:none;color:#fff;padding:0.3em 0.7em;border-radius:4px;cursor:pointer;'>Remove</button>
+			</div>`;
+		}).join('')}</div>
+		<div style='font-weight:bold;'>Total: ₹${cart.reduce((sum, item) => sum + products.find(p=>p.id===item.id).price*item.qty, 0)}</div>
+	</div>`;
+	document.body.appendChild(modal);
+	modal.querySelector('.close-modal').onclick = () => modal.remove();
+	modal.querySelectorAll('.cart-remove').forEach(btn => btn.onclick = (e) => {
+		let id = +btn.dataset.id;
+		cart = cart.filter(i => i.id !== id);
+		localStorage.setItem('cart', JSON.stringify(cart));
+		updateCartCount();
+		modal.remove();
+		renderCartModal();
+	});
+	modal.onclick = e => { if (e.target === modal) modal.remove(); };
+}
+cartIcon.onclick = renderCartModal;
+floatingCart.onclick = renderCartModal;
+wishlistIcon.onclick = () => {
+	let names = wishlist.map(id => products.find(p => p.id === id)?.name).filter(Boolean);
+	showPopup(names.length ? 'Wishlist: ' + names.join(', ') : 'Wishlist is empty.');
+};
 
 // --- Filtering & Search ---
 filterBtns.forEach(btn => btn.onclick = () => {
@@ -200,7 +242,7 @@ function init() {
 	updateDealTimer();
 	startCarouselTimer();
 }
-init();
+document.addEventListener('DOMContentLoaded', init);
 // (removed duplicate banners and modal block)
 
 // --- Product Modal ---
