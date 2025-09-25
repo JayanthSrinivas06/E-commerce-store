@@ -32,7 +32,16 @@
 				<a href="#" class="nav-link active">Home</a>
 				<a href="#" class="nav-link">Deals</a>
 				<a href="#" class="nav-link">Orders</a>
-				<a href="account.html" class="nav-link">Account</a>
+				<a href="#" class="nav-link" id="accountNav">Account</a>
+		<!-- Account Modal -->
+		<div class="modal" id="accountModal">
+			<div class="modal-content" style="min-width:320px;max-width:95vw;flex-direction:column;align-items:center;">
+				<span class="close-modal" id="closeAccountModal" style="position:absolute;top:12px;right:18px;font-size:2em;cursor:pointer;">&times;</span>
+				<div class="account-title" style="font-size:2em;font-weight:bold;color:var(--primary);margin-bottom:0.5em;">Your Account</div>
+				<div class="account-info" style="color:#333;font-size:1.1em;margin-bottom:1em;">Username: <b>user</b></div>
+				<button class="logout-btn" id="logoutBtn" style="background:var(--primary);color:#fff;border:none;border-radius:4px;padding:0.7em 1.2em;font-size:1em;cursor:pointer;transition:background var(--transition);">Logout</button>
+			</div>
+		</div>
 			</nav>
 		</div>
 		<form class="search-bar" autocomplete="off">
@@ -116,6 +125,24 @@
 	</div>
 
 	<script src="script.js"></script>
+<script>
+	// Account modal logic
+	const accountNav = document.getElementById('accountNav');
+	const accountModal = document.getElementById('accountModal');
+	const closeAccountModal = document.getElementById('closeAccountModal');
+	const logoutBtn = document.getElementById('logoutBtn');
+	if(accountNav && accountModal && closeAccountModal && logoutBtn) {
+		accountNav.onclick = (e) => { e.preventDefault(); accountModal.classList.add('open'); };
+		closeAccountModal.onclick = () => accountModal.classList.remove('open');
+		logoutBtn.onclick = function() {
+			localStorage.removeItem('jaystores_loggedin');
+			window.location.href = 'login.html';
+		};
+		window.addEventListener('click', function(e) {
+			if (e.target === accountModal) accountModal.classList.remove('open');
+		});
+	}
+</script>
 </body>
 </html>
 			<span class="icon-cart"></span>
