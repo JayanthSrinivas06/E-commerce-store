@@ -455,7 +455,7 @@ body {
 	background: var(--primary);
 	color: #fff;
 	border-radius: 50%;
-	width: 56px; height: 56px;
+	width: 36px; height: 36px;
 	display: flex; align-items: center; justify-content: center;
 	font-size: 2rem;
 	box-shadow: 0 4px 16px #ff990044;
