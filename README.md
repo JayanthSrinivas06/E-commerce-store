@@ -1,6 +1,6 @@
 # 🛒 E-commerce Store
 
-An Amazon/Flipkart-inspired, fully functional e-commerce product showcase built with **HTML, CSS, and JavaScript**. This project features a modern, responsive UI, authentication, cart/wishlist, dark mode, and more—perfect for learning or demoing a professional online store.
+A fully functional e-commerce product showcase built with **HTML, CSS, and JavaScript**. This project features a modern, responsive UI, authentication, cart/wishlist, dark mode, and more—perfect for learning or demoing a professional online store.
 
 ---
 
@@ -31,19 +31,11 @@ Password: password
 
 ---
 
-## 📸 Screenshots
-
-<p align="center">
-	<img src="assets/banners/banner1.jpg" alt="Banner" width="60%">
-</p>
-
----
-
 ## 🛠️ Tech Stack
 
 - HTML5
-- CSS3
-- JavaScript (ES6)
+- CSS
+- JavaScript
 - [Vercel](https://vercel.com/) for static deployment
 
 ---
@@ -84,7 +76,6 @@ E-commerce-store/
 
 ## 🙏 Credits
 
-- Inspired by Amazon, Flipkart, and modern e-commerce UIs
 - Built by [Jayanth Srinivas](https://github.com/JayanthSrinivas06)
 
 ---
