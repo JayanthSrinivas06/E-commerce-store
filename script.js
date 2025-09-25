@@ -1,12 +1,14 @@
 // Main JavaScript for Jay Stores E-Commerce Showcase
 
 // --- Sample Data ---
+
+// --- Sample Data ---
 const products = [
 	{
 		id: 1,
 		name: "Wireless Headphones",
 		category: "electronics",
-		image: "assets/products/product1.jpg",
+		image: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=400&q=80",
 		price: 1999,
 		rating: 4.5,
 		desc: "High-quality wireless headphones with noise cancellation and 20h battery life."
@@ -15,7 +17,7 @@ const products = [
 		id: 2,
 		name: "Smart Watch",
 		category: "electronics",
-		image: "assets/products/product2.jpg",
+		image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80",
 		price: 2999,
 		rating: 4.2,
 		desc: "Track your fitness, heart rate, and notifications with this stylish smart watch."
@@ -24,7 +26,7 @@ const products = [
 		id: 3,
 		name: "Men's Sneakers",
 		category: "fashion",
-		image: "assets/products/product3.jpg",
+		image: "https://images.unsplash.com/photo-1517260911205-8a3bfa7b3c61?auto=format&fit=crop&w=400&q=80",
 		price: 1499,
 		rating: 4.0,
 		desc: "Comfortable and trendy sneakers for everyday wear."
@@ -33,7 +35,7 @@ const products = [
 		id: 4,
 		name: "Designer Handbag",
 		category: "fashion",
-		image: "assets/products/product4.jpg",
+		image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80",
 		price: 2499,
 		rating: 4.7,
 		desc: "Elegant handbag with premium finish and spacious compartments."
@@ -42,7 +44,7 @@ const products = [
 		id: 5,
 		name: "LED Table Lamp",
 		category: "home",
-		image: "assets/products/product5.jpg",
+		image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80",
 		price: 799,
 		rating: 4.3,
 		desc: "Energy-efficient LED lamp with adjustable brightness and touch controls."
@@ -51,7 +53,7 @@ const products = [
 		id: 6,
 		name: "Ceramic Vase",
 		category: "home",
-		image: "assets/products/product6.jpg",
+		image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80",
 		price: 599,
 		rating: 4.1,
 		desc: "Modern ceramic vase to enhance your home decor."
@@ -59,103 +61,10 @@ const products = [
 ];
 
 const banners = [
-	"assets/banners/banner1.jpg",
-	"assets/banners/banner2.jpg",
-	"assets/banners/banner3.jpg"
+	"https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80",
+	"https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80",
+	"https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=900&q=80"
 ];
-
-const dealOfDay = {
-	...products[0],
-	dealPrice: 1499,
-	dealEnds: Date.now() + 1000 * 60 * 60 * 6 // 6 hours from now
-};
-
-// --- State ---
-let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-let currentCategory = 'all';
-let searchQuery = '';
-let darkMode = localStorage.getItem('theme') === 'dark';
-
-// --- DOM Elements ---
-const productGrid = document.getElementById('productGrid');
-const searchInput = document.getElementById('searchInput');
-const categoryDropdown = document.getElementById('categoryDropdown');
-const filterBtns = document.querySelectorAll('.filter-btn');
-const cartIcon = document.getElementById('cartIcon');
-const cartCount = document.getElementById('cartCount');
-const floatingCart = document.getElementById('floatingCart');
-const floatingCartCount = document.getElementById('floatingCartCount');
-const wishlistIcon = document.getElementById('wishlistIcon');
-const themeToggle = document.getElementById('themeToggle');
-
-// --- Carousel ---
-const carousel = document.getElementById('carousel');
-const carouselTrack = carousel.querySelector('.carousel-track');
-const prevBtn = carousel.querySelector('.carousel-btn.prev');
-const nextBtn = carousel.querySelector('.carousel-btn.next');
-let carouselIndex = 0;
-
-function renderCarousel() {
-	carouselTrack.innerHTML = banners.map((src, i) =>
-		`<div class="carousel-slide" style="background-image:url('${src}')"></div>`
-	).join('');
-	updateCarousel();
-}
-function updateCarousel() {
-	carouselTrack.style.transform = `translateX(-${carouselIndex * 100}vw)`;
-}
-prevBtn.onclick = () => {
-	carouselIndex = (carouselIndex - 1 + banners.length) % banners.length;
-	updateCarousel();
-};
-nextBtn.onclick = () => {
-	carouselIndex = (carouselIndex + 1) % banners.length;
-	updateCarousel();
-};
-let carouselTimer = setInterval(() => { nextBtn.onclick(); }, 4000);
-carousel.onmouseenter = () => clearInterval(carouselTimer);
-carousel.onmouseleave = () => carouselTimer = setInterval(() => { nextBtn.onclick(); }, 4000);
-
-// --- Deal of the Day ---
-const dealImage = document.querySelector('.deal-image');
-const dealTitle = document.getElementById('dealTitle');
-const dealDesc = document.getElementById('dealDesc');
-const dealPrice = document.getElementById('dealPrice');
-const dealTimer = document.getElementById('dealTimer');
-const dealAddToCart = document.getElementById('dealAddToCart');
-function renderDeal() {
-	dealImage.style.backgroundImage = `url('${dealOfDay.image}')`;
-	dealTitle.textContent = dealOfDay.name;
-	dealDesc.textContent = dealOfDay.desc;
-	dealPrice.textContent = `₹${dealOfDay.dealPrice}  <span class='old-price'>₹${dealOfDay.price}</span>`;
-}
-function updateDealTimer() {
-	let left = Math.max(0, dealOfDay.dealEnds - Date.now());
-	let h = Math.floor(left / 3600000), m = Math.floor((left % 3600000) / 60000), s = Math.floor((left % 60000) / 1000);
-	dealTimer.textContent = `${h}h ${m}m ${s}s`;
-	if (left <= 0) dealAddToCart.disabled = true;
-}
-setInterval(updateDealTimer, 1000);
-dealAddToCart.onclick = () => addToCart(dealOfDay.id, true);
-
-// --- Product Grid ---
-function renderProducts() {
-	let filtered = products.filter(p =>
-		(currentCategory === 'all' || p.category === currentCategory) &&
-		p.name.toLowerCase().includes(searchQuery)
-	);
-	productGrid.innerHTML = filtered.map(p => `
-		<div class="product-card" data-id="${p.id}">
-			<div class="product-image" style="background-image:url('${p.image}')"></div>
-			<div class="product-title">${p.name}</div>
-			<div class="product-rating">${'★'.repeat(Math.round(p.rating))}${'☆'.repeat(5-Math.round(p.rating))} <span style='color:#888;font-size:0.9em'>(${p.rating})</span></div>
-			<div class="product-price">₹${p.price}</div>
-			<button class="add-to-cart">Add to Cart</button>
-			<div class="quick-view" title="Quick View">👁️</div>
-		</div>
-	`).join('');
-}
 
 // --- Product Modal ---
 const modal = document.getElementById('productModal');
@@ -214,6 +123,7 @@ filterBtns.forEach(btn => btn.onclick = () => {
 	filterBtns.forEach(b => b.classList.remove('active'));
 	btn.classList.add('active');
 	currentCategory = btn.dataset.category;
+	categoryDropdown.value = currentCategory;
 	renderProducts();
 });
 categoryDropdown.onchange = e => {
@@ -232,10 +142,25 @@ productGrid.onclick = e => {
 	let card = e.target.closest('.product-card');
 	if (!card) return;
 	let id = +card.dataset.id;
-	if (e.target.classList.contains('add-to-cart')) addToCart(id);
-	else if (e.target.classList.contains('quick-view')) openModal(products.find(p => p.id === id));
-	else openModal(products.find(p => p.id === id));
+	if (e.target.classList.contains('add-to-cart')) {
+		addToCart(id);
+		showPopup('Added to cart!');
+	} else if (e.target.classList.contains('quick-view')) {
+		openModal(products.find(p => p.id === id));
+	} else {
+		openModal(products.find(p => p.id === id));
+	}
 };
+
+// --- Popup for Cart/Wishlist ---
+function showPopup(msg) {
+	let popup = document.createElement('div');
+	popup.className = 'popup-msg';
+	popup.textContent = msg;
+	document.body.appendChild(popup);
+	setTimeout(() => { popup.classList.add('show'); }, 10);
+	setTimeout(() => { popup.classList.remove('show'); setTimeout(() => popup.remove(), 400); }, 1800);
+}
 
 // --- Dark/Light Mode ---
 function setTheme(dark) {
@@ -257,5 +182,7 @@ function init() {
 	updateWishlistIcon();
 	setTheme(darkMode);
 	updateDealTimer();
+	startCarouselTimer();
+init();
 }
 init();
