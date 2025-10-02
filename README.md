@@ -25,8 +25,8 @@ A fully functional e-commerce product showcase built with **HTML, CSS, and JavaS
 Use these credentials to log in:
 
 ```
-Username: demo
-Password: password
+Username: user
+Password: pass123
 ```
 
 ---
